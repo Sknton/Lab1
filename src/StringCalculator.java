@@ -50,6 +50,12 @@ public class StringCalculator {
             number_s = numbers.split(delimiter);
         }
         for (int i = 0; i < number_s.length; i++){
+            try{
+                Integer.parseInt(numbers.substring(numbers.length()-1));
+            } catch (NumberFormatException e){
+                System.err.println("Роздільник не може бути в кінці");
+                break;
+            }
             if (number_s.length==1 & number_s[i]==""){
                 break;
             }
@@ -64,15 +70,19 @@ public class StringCalculator {
             sum+=Integer.parseInt(number_s[i]);
         }
         if (ind==1){
-            System.out.println(neg_int);
-            return 0;
+            try{
+                Integer.parseInt(neg_int);
+            } catch (NumberFormatException ex){
+                System.err.println(neg_int);
+                return 0;
+            }
         }
         return  sum;
     }
 
 
     public static void main(String[] args) {
-        String str = "//[92][**][((]\n12,5((1001\n1000**1926";
+        String str = "//[***][**][++]\n1***2**3**4++5";
         StringCalculator stringCalculator = new StringCalculator();
         int sum = stringCalculator.add(str);
         System.out.println(sum);
