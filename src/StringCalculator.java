@@ -21,7 +21,16 @@ public class StringCalculator {
             det_str = det_str.replaceAll(reg, "\\\\${delims}");
             DelimLst.add(det_str);
         }
-        String del = String.join("|", DelimLst);
+        List<String> DelimList = new ArrayList<>(DelimLst);
+        Comparator<String> c = new Comparator<>()
+        {
+            public int compare(String s1, String s2) {
+                return Integer.compare(s1.length(), s2.length());
+            }
+        };
+        DelimList.sort(Comparator.comparingInt(String::length));
+        Collections.reverse(DelimList);
+        String del = String.join("|", DelimList);
         return del;
     }
     public int add(String numbers){
@@ -82,7 +91,7 @@ public class StringCalculator {
 
 
     public static void main(String[] args) {
-        String str = "//[***][**][++]\n1***2**3**4++5";
+        String str = "//[?][???][2]\n1?6???121";
         StringCalculator stringCalculator = new StringCalculator();
         int sum = stringCalculator.add(str);
         System.out.println(sum);
